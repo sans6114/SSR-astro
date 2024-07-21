@@ -33,7 +33,7 @@ export const GET: APIRoute = async ({ params, request }) => {
         })
     }
 
-    const posts = await getCollection('blog')
+    const posts = (await getCollection('blog'))
 
     return new Response(JSON.stringify(posts), {
         status: 200,
