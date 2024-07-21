@@ -17,7 +17,6 @@ export const GET: APIRoute = async ({ params, request }) => {
 
 
 
-
     return new Response(JSON.stringify(post), {
         status: 200,
         headers: {
