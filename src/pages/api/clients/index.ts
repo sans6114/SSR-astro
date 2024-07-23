@@ -1,21 +1,21 @@
 import type { APIRoute } from 'astro';
-import {
-  Clients,
-  db,
-} from 'astro:db';
+
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient()
 
 export const prerender = false
 
 
 export const GET: APIRoute = async ({ params, request }) => {
 
-    const users = await db.select().from(Clients);
-    console.log(users)
+    const clients = await prisma.clients.findMany()
+    console.log(clients)
 
 
     return new Response(JSON.stringify({
         method: 'Get',
-        users
+        clients
     }), {
         status: 200,
         headers: {
@@ -29,14 +29,15 @@ export const POST: APIRoute = async ({ request }) => {
         const { id, ...body } = await request.json();
 
 
-        const { lastInsertRowid } = await db.insert(Clients).values({
-            ...body
-        })
-        console.log()
-
+        const newClient = await prisma.clients.create({
+            data: {
+              ...body
+            },
+          })
+console.log(newClient)
         return new Response(JSON.stringify({
             method: 'POST',
-            id: +lastInsertRowid!.toString(),
+            newClient,
             ...body
         }), {
             status: 200,
