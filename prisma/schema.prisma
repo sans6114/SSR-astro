@@ -11,6 +11,14 @@ datasource db {
 }
 
 
+
+
+model Posts {
+  id Int @id @default(autoincrement())
+  title String
+  likes Int
+}
+
 model Clients {
   id Int @id @default(autoincrement())
   name String
