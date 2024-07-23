@@ -18,7 +18,7 @@ export const GET: APIRoute = async ({ params, request }) => {
         const post = await getEntry('blog', slug)
 
 
-        if (post) return new Response(JSON.stringify(post.id), {
+        if (post) return new Response(JSON.stringify(post), {
             status: 200,
             headers: {
                 'Content-type': 'application/json'
